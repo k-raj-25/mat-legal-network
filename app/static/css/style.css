@@ -1,0 +1,63 @@
+:root {
+  --bg: #0f1c2e;
+  --surface: #162a45;
+  --text: #e8eef7;
+  --muted: #9db0c9;
+  --accent: #c4a35a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Georgia, serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at top left, #1e3a5f 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, #243b55 0%, transparent 45%),
+    var(--bg);
+}
+
+.site-header {
+  padding: 1.25rem 2rem;
+}
+
+.brand {
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.site-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: calc(100vh - 4rem);
+}
+
+.hero {
+  max-width: 36rem;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+}
+
+.hero p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.hero a {
+  color: var(--accent);
+}
