@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found — MAT Legal Network{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container empty-state">
+    <h1>Page not found</h1>
+    <p>The page you’re looking for doesn’t exist or is no longer available.</p>
+    <a class="btn btn-primary" href="{{ url_for('main.index') }}">Back to home</a>
+  </div>
+</section>
+{% endblock %}

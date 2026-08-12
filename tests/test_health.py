@@ -31,3 +31,11 @@ def test_index_renders(client):
     response = client.get("/")
     assert response.status_code == 200
     assert b"MAT Legal Network" in response.data
+    assert b"Find the Right Lawyer for Your Legal Needs" in response.data
+    assert b"Featured Verified Lawyers" in response.data
+
+
+def test_find_lawyers_renders(client):
+    response = client.get("/find-lawyers")
+    assert response.status_code == 200
+    assert b"Find a Lawyer" in response.data

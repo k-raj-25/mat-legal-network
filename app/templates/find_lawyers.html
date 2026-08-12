@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% from "macros/lawyer_card.html" import lawyer_card %}
+
+{% block title %}Find a Lawyer — MAT Legal Network{% endblock %}
+{% block meta_description %}Search verified lawyers across India by practice area, location, and experience.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Lawyer directory</p>
+    <h1>Find a Lawyer</h1>
+    <p>Filter by practice area, state, city, and years of experience.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <form
+      class="directory-search"
+      action="{{ url_for('main.find_lawyers') }}"
+      method="get"
+      data-location-filters
+      data-state-cities='{{ state_cities | tojson }}'
+    >
+      <label class="field">
+        <span>Practice Area</span>
+        <select name="practice_area">
+          <option value="">All areas</option>
+          {% for area in practice_areas %}
+            <option value="{{ area }}" {% if selected_practice_area == area %}selected{% endif %}>{{ area }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>State</span>
+        <select name="state" data-state-select>
+          <option value="">All states</option>
+          {% for state in states %}
+            <option value="{{ state }}" {% if selected_state == state %}selected{% endif %}>{{ state }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>City</span>
+        <select name="city" data-city-select data-selected-city="{{ selected_city }}">
+          <option value="">All cities</option>
+          {% for city in cities %}
+            <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>Experience</span>
+        <select name="experience">
+          <option value="">Any experience</option>
+          {% for value, label in experience_ranges %}
+            <option value="{{ value }}" {% if selected_experience == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button class="btn btn-accent" type="submit">Search</button>
+    </form>
+
+    {% if lawyers %}
+      <div class="lawyer-grid">
+        {% for lawyer in lawyers %}
+          {{ lawyer_card(lawyer) }}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <h2>No lawyers matched your filters</h2>
+        <p>Try a broader search or browse all practice areas.</p>
+        <a class="btn btn-secondary" href="{{ url_for('main.find_lawyers') }}">Clear filters</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

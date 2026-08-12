@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Register as a Lawyer — MAT Legal Network{% endblock %}
+{% block meta_description %}Join MAT Legal Network and reach clients looking for your legal expertise.{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container auth-shell">
+    <div class="auth-panel">
+      <p class="eyebrow">For advocates</p>
+      <h1>Register as a Lawyer</h1>
+      <p>
+        Lawyer onboarding is launching soon. Email
+        <a href="mailto:lawyers@matlegal.in">lawyers@matlegal.in</a>
+        to express interest in joining the network.
+      </p>
+      <div class="auth-actions">
+        <a class="btn btn-primary" href="mailto:lawyers@matlegal.in">Email us</a>
+        <a class="btn btn-secondary" href="{{ url_for('main.login') }}">Lawyer Login</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

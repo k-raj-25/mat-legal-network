@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lawyer.full_name }} — MAT Legal Network{% endblock %}
+{% block meta_description %}Profile of {{ lawyer.full_name }}, {{ lawyer.practice_area }} lawyer in {{ lawyer.location_label }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container profile-hero">
+    {% if lawyer.photo_url %}
+      <img class="lawyer-avatar lawyer-avatar-lg" src="{{ lawyer.photo_url }}" alt="Photo of {{ lawyer.full_name }}">
+    {% else %}
+      <div class="lawyer-avatar lawyer-avatar-lg lawyer-avatar-fallback" aria-hidden="true">{{ lawyer.initials }}</div>
+    {% endif %}
+    <div>
+      <p class="eyebrow">{{ lawyer.practice_area }}</p>
+      <h1>
+        {{ lawyer.full_name }}
+        {% if lawyer.is_verified %}
+          <span class="verified-badge">Verified</span>
+        {% endif %}
+      </h1>
+      <p>{{ lawyer.years_experience }}+ years experience · {{ lawyer.location_label }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <h2>About</h2>
+    <p>
+      {{ lawyer.full_name }} practises {{ lawyer.practice_area|lower }} law in {{ lawyer.location_label }},
+      helping clients with clear guidance and professional representation.
+    </p>
+    <div class="section-cta">
+      <a class="btn btn-primary" href="{{ url_for('main.contact') }}">Request Contact</a>
+      <a class="btn btn-secondary" href="{{ url_for('main.find_lawyers') }}">Back to directory</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -3,9 +3,11 @@
 {% block title %}Home — MAT Legal Network{% endblock %}
 
 {% block content %}
-<section class="hero">
-  <h1>MAT Legal Network</h1>
-  <p>Flask + Jinja + PostgreSQL scaffold is running.</p>
-  <p><a href="{{ url_for('api.health') }}">Check API health</a></p>
+{# Legacy template. The homepage is served from home.html via main.index. #}
+<section class="section">
+  <div class="container empty-state">
+    <h1>MAT Legal Network</h1>
+    <p><a class="btn btn-primary" href="{{ url_for('main.index') }}">Go to homepage</a></p>
+  </div>
 </section>
 {% endblock %}

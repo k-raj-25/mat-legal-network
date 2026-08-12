@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timezone
 
 from flask import Flask
 
@@ -15,6 +16,10 @@ def create_app(config_name: str | None = None) -> Flask:
 
     db.init_app(app)
     migrate.init_app(app, db)
+
+    @app.context_processor
+    def inject_globals():
+        return {"current_year": datetime.now(timezone.utc).year}
 
     from app.blueprints.main import main_bp
     from app.blueprints.api import api_bp

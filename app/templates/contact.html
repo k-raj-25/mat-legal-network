@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us — MAT Legal Network{% endblock %}
+{% block meta_description %}Contact MAT Legal Network for support, partnerships, or lawyer onboarding questions.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container narrow">
+    <p class="eyebrow">We’re here to help</p>
+    <h1>Contact Us</h1>
+    <p>Reach the MAT Legal Network team for client support or lawyer onboarding.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-grid">
+    <div class="prose">
+      <h2>Get in touch</h2>
+      <p>
+        Email <a href="mailto:hello@matlegal.in">hello@matlegal.in</a><br>
+        Call <a href="tel:+911140000000">+91 11 4000 0000</a>
+      </p>
+      <p>
+        4th Floor, Legal Hub<br>
+        Connaught Place, New Delhi 110001
+      </p>
+    </div>
+    <form class="contact-form" action="{{ url_for('main.contact') }}" method="get">
+      <label class="field">
+        <span>Name</span>
+        <input type="text" name="name" placeholder="Your name" disabled>
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" placeholder="you@example.com" disabled>
+      </label>
+      <label class="field">
+        <span>Message</span>
+        <textarea name="message" rows="5" placeholder="How can we help?" disabled></textarea>
+      </label>
+      <p class="form-note">Contact form submissions will be enabled soon. Please email us for now.</p>
+      <button class="btn btn-primary" type="button" disabled>Send message</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
