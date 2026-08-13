@@ -1,47 +1,83 @@
+{% macro lawyer_photo_src(lawyer) -%}
+  {%- if lawyer.photo_url.startswith("http://") or lawyer.photo_url.startswith("https://") or lawyer.photo_url.startswith("/") -%}
+    {{ lawyer.photo_url }}
+  {%- else -%}
+    {{ url_for("static", filename=lawyer.photo_url) }}
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro lawyer_photo(lawyer, extra_class="") %}
+  {% if lawyer.photo_url %}
+    <img
+      class="lawyer-avatar {{ extra_class }}"
+      src="{{ lawyer_photo_src(lawyer) }}"
+      alt="Photo of {{ lawyer.full_name }}"
+      width="72"
+      height="72"
+      loading="lazy"
+    >
+  {% else %}
+    <div class="lawyer-avatar lawyer-avatar-fallback {{ extra_class }}" aria-hidden="true">
+      {{ lawyer.initials }}
+    </div>
+  {% endif %}
+{% endmacro %}
+
 {% macro lawyer_card(lawyer) %}
-<article class="lawyer-card reveal">
-  <div class="lawyer-card-top">
-    {% if lawyer.photo_url %}
+<a
+  class="lawyer-card reveal"
+  href="{{ url_for('main.lawyer_profile', slug=lawyer.slug) }}"
+  aria-label="View profile of {{ lawyer.full_name }}"
+>
+  {% if lawyer.photo_url %}
+    <div class="lawyer-card-media">
       <img
-        class="lawyer-avatar"
-        src="{{ lawyer.photo_url }}"
-        alt="Photo of {{ lawyer.full_name }}"
-        width="72"
-        height="72"
+        class="lawyer-card-photo"
+        src="{{ lawyer_photo_src(lawyer) }}"
+        alt=""
+        width="480"
+        height="480"
         loading="lazy"
       >
-    {% else %}
-      <div class="lawyer-avatar lawyer-avatar-fallback" aria-hidden="true">
-        {{ lawyer.initials }}
+    </div>
+  {% else %}
+    <div class="lawyer-card-media">
+      <div class="lawyer-card-photo lawyer-card-photo-fallback" aria-hidden="true">{{ lawyer.initials }}</div>
+    </div>
+  {% endif %}
+
+  <div class="lawyer-card-body">
+    <h3 class="lawyer-card-name">
+      <span>{{ lawyer.full_name }}</span>
+      {% if lawyer.is_verified %}
+        <span class="lawyer-verified" title="Verified lawyer">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.498 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.498 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"/>
+          </svg>
+        </span>
+      {% endif %}
+    </h3>
+    <p class="lawyer-card-bio">{{ lawyer.practice_area }} lawyer in {{ lawyer.location_label }}.</p>
+
+    <div class="lawyer-card-footer">
+      <div class="lawyer-card-stats">
+        <span>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="3.2"></circle>
+            <path d="M5.5 19a6.5 6.5 0 0 1 13 0"></path>
+          </svg>
+          {{ lawyer.years_experience }}+
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="7" width="16" height="13" rx="2"></rect>
+            <path d="M8 7V5.8A2.8 2.8 0 0 1 10.8 3h2.4A2.8 2.8 0 0 1 16 5.8V7"></path>
+          </svg>
+          {{ lawyer.city }}
+        </span>
       </div>
-    {% endif %}
-    <div>
-      <h3 class="lawyer-name">
-        {{ lawyer.full_name }}
-        {% if lawyer.is_verified %}
-          <span class="verified-badge" title="Verified lawyer">
-            <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true">
-              <path fill="currentColor" d="M10 1.5l2.1 1.1 2.4-.3.9 2.2 2.2.9-.3 2.4L18.5 10l-1.1 2.1.3 2.4-2.2.9-.9 2.2-2.4-.3L10 18.5l-2.1-1.1-2.4.3-.9-2.2-2.2-.9.3-2.4L1.5 10l1.1-2.1-.3-2.4 2.2-.9.9-2.2 2.4.3L10 1.5zm-1.1 10.4l4.4-4.4-1.1-1.1-3.3 3.3-1.5-1.5-1.1 1.1 2.6 2.6z"/>
-            </svg>
-            Verified
-          </span>
-        {% endif %}
-      </h3>
-      <p class="lawyer-meta">{{ lawyer.practice_area }}</p>
+      <span class="lawyer-card-cta">View +</span>
     </div>
   </div>
-  <dl class="lawyer-facts">
-    <div>
-      <dt>Experience</dt>
-      <dd>{{ lawyer.years_experience }}+ years</dd>
-    </div>
-    <div>
-      <dt>City</dt>
-      <dd>{{ lawyer.location_label }}</dd>
-    </div>
-  </dl>
-  <a class="btn btn-secondary btn-block" href="{{ url_for('main.lawyer_profile', slug=lawyer.slug) }}">
-    View Profile
-  </a>
-</article>
+</a>
 {% endmacro %}

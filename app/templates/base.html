@@ -7,7 +7,7 @@
   <meta name="description" content="{% block meta_description %}Find verified lawyers across India by practice area, city, and experience. MAT Legal Network connects you with trusted legal professionals.{% endblock %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   {% block extra_head %}{% endblock %}
 </head>
@@ -17,11 +17,13 @@
   <header class="site-header" data-header>
     <div class="container header-inner">
       <a class="brand" href="{{ url_for('main.index') }}" aria-label="MAT Legal Network home">
-        <span class="brand-mark" aria-hidden="true">M</span>
-        <span class="brand-text">
-          <span class="brand-name">MAT Legal</span>
-          <span class="brand-sub">Network</span>
-        </span>
+        <img
+          class="brand-logo"
+          src="{{ url_for('static', filename='img/logo.png') }}"
+          alt="MAT Legal Network"
+          width="1536"
+          height="1024"
+        >
       </a>
 
       <button
@@ -37,10 +39,18 @@
 
       <nav class="site-nav" id="site-nav" data-nav>
         <ul class="nav-links">
-          <li><a href="{{ url_for('main.index') }}">Home</a></li>
-          <li><a href="{{ url_for('main.find_lawyers') }}">Find a Lawyer</a></li>
-          <li><a href="{{ url_for('main.about') }}">About</a></li>
-          <li><a href="{{ url_for('main.contact') }}">Contact</a></li>
+          <li>
+            <a href="{{ url_for('main.index') }}" class="{% if request.endpoint == 'main.index' %}is-active{% endif %}">Home</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.find_lawyers') }}" class="{% if request.endpoint in ['main.find_lawyers', 'main.lawyer_profile'] %}is-active{% endif %}">Find Lawyer</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.about') }}" class="{% if request.endpoint == 'main.about' %}is-active{% endif %}">About</a>
+          </li>
+          <li>
+            <a href="{{ url_for('main.contact') }}" class="{% if request.endpoint == 'main.contact' %}is-active{% endif %}">Contact</a>
+          </li>
         </ul>
         <div class="nav-actions">
           <a class="nav-login" href="{{ url_for('main.login') }}">Login</a>
@@ -58,11 +68,13 @@
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="brand brand-footer" href="{{ url_for('main.index') }}">
-          <span class="brand-mark" aria-hidden="true">M</span>
-          <span class="brand-text">
-            <span class="brand-name">MAT Legal</span>
-            <span class="brand-sub">Network</span>
-          </span>
+          <img
+            class="brand-logo"
+            src="{{ url_for('static', filename='img/logo.png') }}"
+            alt="MAT Legal Network"
+            width="1536"
+            height="1024"
+          >
         </a>
         <p>India’s trusted platform to discover verified lawyers by expertise, experience, and city.</p>
         <div class="social-links" aria-label="Social media">

@@ -30,7 +30,7 @@ def _lawyer_card_data(lawyer: Lawyer) -> dict:
     }
 
 
-def get_featured_lawyers(limit: int = 4) -> list[dict]:
+def get_featured_lawyers(limit: int = 8) -> list[dict]:
     """Return approved lawyers from the DB, or demo cards if none exist."""
     try:
         lawyers = (
