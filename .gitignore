@@ -29,5 +29,9 @@ htmlcov/
 # Flask / instance
 instance/
 
+# Uploaded lawyer photos
+app/static/uploads/lawyers/*
+!app/static/uploads/lawyers/.gitkeep
+
 # Docker
 *.log

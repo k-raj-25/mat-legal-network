@@ -25,6 +25,8 @@ services:
       FLASK_ENV: ${FLASK_ENV:-production}
       SECRET_KEY: ${SECRET_KEY:-change-me-in-production}
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://mat:mat@db:5432/mat_legal}
+    volumes:
+      - lawyer_uploads:/app/app/static/uploads/lawyers
     depends_on:
       db:
         condition: service_healthy
@@ -34,3 +36,4 @@ services:
 
 volumes:
   postgres_data:
+  lawyer_uploads:

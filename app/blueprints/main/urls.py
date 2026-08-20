@@ -9,13 +9,20 @@ main_bp.add_url_rule(
     methods=["GET"],
 )
 main_bp.add_url_rule("/about", view_func=views.about, methods=["GET"])
-main_bp.add_url_rule("/contact", view_func=views.contact, methods=["GET"])
-main_bp.add_url_rule("/login", view_func=views.login, methods=["GET"])
+main_bp.add_url_rule("/contact", view_func=views.contact, methods=["GET", "POST"])
+main_bp.add_url_rule("/login", view_func=views.login, methods=["GET", "POST"])
+main_bp.add_url_rule("/logout", view_func=views.logout, methods=["POST"])
 main_bp.add_url_rule("/signup", view_func=views.signup, methods=["GET"])
 main_bp.add_url_rule(
     "/register-lawyer",
     view_func=views.register_lawyer,
-    methods=["GET"],
+    methods=["GET", "POST"],
+)
+main_bp.add_url_rule("/account", view_func=views.account, methods=["GET"])
+main_bp.add_url_rule(
+    "/account/reapply",
+    view_func=views.reapply,
+    methods=["GET", "POST"],
 )
 main_bp.add_url_rule("/privacy", view_func=views.privacy, methods=["GET"])
 main_bp.add_url_rule("/terms", view_func=views.terms, methods=["GET"])

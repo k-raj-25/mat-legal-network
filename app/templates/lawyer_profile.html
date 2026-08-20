@@ -1,22 +1,26 @@
 {% extends "base.html" %}
 {% from "macros/lawyer_card.html" import lawyer_photo %}
+{% from "macros/pills.html" import area_pills, location_pills %}
 
 {% block title %}{{ lawyer.full_name }} — MAT Legal Network{% endblock %}
 {% block meta_description %}Profile of {{ lawyer.full_name }}, {{ lawyer.practice_area }} lawyer in {{ lawyer.location_label }}.{% endblock %}
 
 {% block content %}
+{% set areas = lawyer.practice_areas if lawyer.practice_areas else [lawyer.practice_area] %}
 <section class="page-hero">
   <div class="container profile-hero">
     {{ lawyer_photo(lawyer, "lawyer-avatar-lg") }}
     <div>
-      <p class="eyebrow">{{ lawyer.practice_area }}</p>
+      <p class="eyebrow">Lawyer profile</p>
       <h1>
         {{ lawyer.full_name }}
         {% if lawyer.is_verified %}
           <span class="verified-badge">Verified</span>
         {% endif %}
       </h1>
-      <p>{{ lawyer.years_experience }}+ years experience · {{ lawyer.location_label }}</p>
+      <p>{{ lawyer.years_experience }}+ years experience</p>
+      {{ area_pills(areas) }}
+      {{ location_pills(lawyer.locations) }}
     </div>
   </div>
 </section>
@@ -24,10 +28,25 @@
 <section class="section">
   <div class="container narrow">
     <h2>About</h2>
-    <p>
-      {{ lawyer.full_name }} practises {{ lawyer.practice_area|lower }} law in {{ lawyer.location_label }},
-      helping clients with clear guidance and professional representation.
-    </p>
+    {% if lawyer.bio %}
+      <p>{{ lawyer.bio }}</p>
+    {% else %}
+      <p>
+        {{ lawyer.full_name }} practises {{ lawyer.practice_area|lower }} law in {{ lawyer.location_label }},
+        helping clients with clear guidance and professional representation.
+      </p>
+    {% endif %}
+
+    {% if lawyer.languages_label %}
+      <h2>Languages</h2>
+      <p>{{ lawyer.languages_label }}</p>
+    {% endif %}
+
+    {% if lawyer.mobile %}
+      <h2>Contact</h2>
+      <p><a href="tel:+91{{ lawyer.mobile }}">+91 {{ lawyer.mobile }}</a></p>
+    {% endif %}
+
     <div class="section-cta">
       <a class="btn btn-primary" href="{{ url_for('main.contact') }}">Request Contact</a>
       <a class="btn btn-secondary" href="{{ url_for('main.find_lawyers') }}">Back to directory</a>

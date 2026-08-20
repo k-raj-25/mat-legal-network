@@ -36,6 +36,31 @@ POPULAR_CITIES = [
     city for cities in STATE_CITIES.values() for city in cities
 ]
 
+LANGUAGES = [
+    "English",
+    "Hindi",
+    "Bengali",
+    "Tamil",
+    "Telugu",
+    "Marathi",
+    "Gujarati",
+    "Kannada",
+    "Malayalam",
+    "Punjabi",
+    "Urdu",
+    "Odia",
+    "Assamese",
+]
+
+ROLE_LAWYER = "lawyer"
+ROLE_ADMIN = "admin"
+
+STATUS_PENDING = "pending"
+STATUS_APPROVED = "approved"
+STATUS_REJECTED = "rejected"
+
+ALLOWED_PHOTO_EXTENSIONS = {"jpg", "jpeg", "png", "webp"}
+
 # Used only when the database has no approved lawyers yet.
 DEMO_LAWYERS = [
     {
@@ -43,6 +68,7 @@ DEMO_LAWYERS = [
         "full_name": "Adv. Priya Sharma",
         "slug": "priya-sharma",
         "practice_area": "Family",
+        "practice_areas": ["Family"],
         "city": "Mumbai",
         "state": "Maharashtra",
         "years_experience": 12,
@@ -50,6 +76,12 @@ DEMO_LAWYERS = [
         "is_verified": True,
         "initials": "PS",
         "location_label": "Mumbai, Maharashtra",
+        "languages": ["English", "Hindi"],
+        "languages_label": "English, Hindi",
+        "bio": "Family law advocate helping clients with matrimonial and custody matters in Mumbai.",
+        "address": None,
+        "phone": None,
+        "mobile": None,
         "is_demo": True,
     },
     {
@@ -57,6 +89,7 @@ DEMO_LAWYERS = [
         "full_name": "Adv. Arjun Mehta",
         "slug": "arjun-mehta",
         "practice_area": "Criminal",
+        "practice_areas": ["Criminal"],
         "city": "Delhi",
         "state": "Delhi",
         "years_experience": 18,
@@ -64,6 +97,12 @@ DEMO_LAWYERS = [
         "is_verified": True,
         "initials": "AM",
         "location_label": "Delhi, Delhi",
+        "languages": ["English", "Hindi"],
+        "languages_label": "English, Hindi",
+        "bio": "Criminal defence lawyer practising before the Delhi courts.",
+        "address": None,
+        "phone": None,
+        "mobile": None,
         "is_demo": True,
     },
     {
@@ -71,6 +110,7 @@ DEMO_LAWYERS = [
         "full_name": "Adv. Sneha Iyer",
         "slug": "sneha-iyer",
         "practice_area": "Corporate",
+        "practice_areas": ["Corporate"],
         "city": "Bengaluru",
         "state": "Karnataka",
         "years_experience": 9,
@@ -78,6 +118,12 @@ DEMO_LAWYERS = [
         "is_verified": True,
         "initials": "SI",
         "location_label": "Bengaluru, Karnataka",
+        "languages": ["English", "Kannada"],
+        "languages_label": "English, Kannada",
+        "bio": "Corporate and commercial counsel for startups and growing businesses in Bengaluru.",
+        "address": None,
+        "phone": None,
+        "mobile": None,
         "is_demo": True,
     },
     {
@@ -85,6 +131,7 @@ DEMO_LAWYERS = [
         "full_name": "Adv. Rohan Kapoor",
         "slug": "rohan-kapoor",
         "practice_area": "Property",
+        "practice_areas": ["Property"],
         "city": "Pune",
         "state": "Maharashtra",
         "years_experience": 14,
@@ -92,6 +139,12 @@ DEMO_LAWYERS = [
         "is_verified": True,
         "initials": "RK",
         "location_label": "Pune, Maharashtra",
+        "languages": ["English", "Marathi", "Hindi"],
+        "languages_label": "English, Marathi, Hindi",
+        "bio": "Property and real-estate disputes, titles, and conveyancing in Pune.",
+        "address": None,
+        "phone": None,
+        "mobile": None,
         "is_demo": True,
     },
     {
@@ -99,6 +152,7 @@ DEMO_LAWYERS = [
         "full_name": "Adv. Meera Nair",
         "slug": "meera-nair",
         "practice_area": "Divorce",
+        "practice_areas": ["Divorce"],
         "city": "Chennai",
         "state": "Tamil Nadu",
         "years_experience": 11,
@@ -106,6 +160,12 @@ DEMO_LAWYERS = [
         "is_verified": True,
         "initials": "MN",
         "location_label": "Chennai, Tamil Nadu",
+        "languages": ["English", "Tamil"],
+        "languages_label": "English, Tamil",
+        "bio": "Divorce and family law practitioner based in Chennai.",
+        "address": None,
+        "phone": None,
+        "mobile": None,
         "is_demo": True,
     },
     {
@@ -113,6 +173,7 @@ DEMO_LAWYERS = [
         "full_name": "Adv. Vikram Singh",
         "slug": "vikram-singh",
         "practice_area": "Civil",
+        "practice_areas": ["Civil"],
         "city": "Jaipur",
         "state": "Rajasthan",
         "years_experience": 16,
@@ -120,6 +181,12 @@ DEMO_LAWYERS = [
         "is_verified": True,
         "initials": "VS",
         "location_label": "Jaipur, Rajasthan",
+        "languages": ["English", "Hindi"],
+        "languages_label": "English, Hindi",
+        "bio": "Civil litigation advocate appearing before courts in Jaipur.",
+        "address": None,
+        "phone": None,
+        "mobile": None,
         "is_demo": True,
     },
     {
@@ -127,6 +194,7 @@ DEMO_LAWYERS = [
         "full_name": "Adv. Ananya Reddy",
         "slug": "ananya-reddy",
         "practice_area": "Consumer",
+        "practice_areas": ["Consumer"],
         "city": "Hyderabad",
         "state": "Telangana",
         "years_experience": 8,
@@ -134,6 +202,12 @@ DEMO_LAWYERS = [
         "is_verified": True,
         "initials": "AR",
         "location_label": "Hyderabad, Telangana",
+        "languages": ["English", "Telugu"],
+        "languages_label": "English, Telugu",
+        "bio": "Consumer disputes and protection matters across Hyderabad.",
+        "address": None,
+        "phone": None,
+        "mobile": None,
         "is_demo": True,
     },
     {
@@ -141,6 +215,7 @@ DEMO_LAWYERS = [
         "full_name": "Adv. Kabir Malhotra",
         "slug": "kabir-malhotra",
         "practice_area": "Cyber",
+        "practice_areas": ["Cyber"],
         "city": "Ahmedabad",
         "state": "Gujarat",
         "years_experience": 13,
@@ -148,6 +223,18 @@ DEMO_LAWYERS = [
         "is_verified": True,
         "initials": "KM",
         "location_label": "Ahmedabad, Gujarat",
+        "languages": ["English", "Gujarati", "Hindi"],
+        "languages_label": "English, Gujarati, Hindi",
+        "bio": "Cybercrime, data protection, and technology disputes in Ahmedabad.",
+        "address": None,
+        "phone": None,
+        "mobile": None,
         "is_demo": True,
     },
 ]
+
+for _demo in DEMO_LAWYERS:
+    _demo.setdefault(
+        "locations",
+        [{"city": _demo["city"], "state": _demo["state"]}],
+    )

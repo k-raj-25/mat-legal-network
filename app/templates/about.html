@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}About — MAT Legal Network{% endblock %}
-{% block meta_description %}Learn how MAT Legal Network helps clients find verified lawyers across India.{% endblock %}
+{% block meta_description %}Learn how MAT Legal Network helps clients across India find verified lawyers — and meet the advocate who founded the platform.{% endblock %}
 
 {% block content %}
 <section class="page-hero">
@@ -15,22 +15,111 @@
   </div>
 </section>
 
-<section class="section section-flush-top">
+<section class="section section-flush-top" aria-labelledby="founder-heading">
+  <div class="container about-founder">
+    <figure class="about-founder-photo">
+      <img
+        src="{{ url_for('static', filename='img/about/owner.jpeg') }}"
+        alt="Founder of MAT Legal Network, a practising advocate in court dress"
+        width="899"
+        height="1599"
+      >
+    </figure>
+    <div class="about-founder-copy">
+      <p class="eyebrow">Leadership</p>
+      <h2 id="founder-heading">Guided by practice, built for people</h2>
+      <p class="about-founder-role">Founder, MAT Legal Network</p>
+      <p>
+        MAT Legal Network was founded by a practising advocate who saw how often people struggle to
+        find the right lawyer at the right time. When a matter is urgent, families and businesses
+        should not have to rely on guesswork, incomplete listings, or a single recommendation.
+      </p>
+      <p>
+        This platform exists to make that search simpler: reviewed profiles, clear practice areas,
+        and a direct path from search to a conversation with counsel you can trust.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-muted" aria-labelledby="story-heading">
   <div class="container narrow prose">
-    <h2>Built for trust</h2>
+    <h2 id="story-heading">Why we built this</h2>
     <p>
-      Legal decisions are personal and high-stakes. MAT Legal Network focuses on verified profiles,
-      transparent practice areas, and a simple path from search to connection.
+      Legal decisions are personal and high-stakes. Too many people still begin with confusion —
+      not knowing who practises in their city, what a lawyer actually specialises in, or how to
+      compare experience with confidence.
     </p>
-    <h2>For clients and advocates</h2>
     <p>
-      Clients can shortlist lawyers with confidence. Advocates can present their expertise to people
-      actively looking for help in their city and practice area.
+      MAT Legal Network is a discovery directory, not a law firm. We do not give legal advice.
+      We bring verified advocates into one place so you can search by city, practice area, and
+      experience, read a transparent profile, and connect directly.
     </p>
   </div>
 </section>
 
-<section class="section section-muted">
+<section class="section" aria-labelledby="values-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="values-heading">What we stand for</h2>
+      <p>A directory people can use with confidence — whether they are seeking help or listing a practice.</p>
+    </div>
+    <div class="about-values">
+      <article class="about-value">
+        <h3>Verified listings</h3>
+        <p>
+          Lawyer applications are reviewed before a profile appears in the public directory.
+          Listings go live only after approval.
+        </p>
+      </article>
+      <article class="about-value">
+        <h3>Transparent profiles</h3>
+        <p>
+          Practice areas, locations, languages, and years of experience are shown clearly so
+          you can shortlist with context, not slogans.
+        </p>
+      </article>
+      <article class="about-value">
+        <h3>Direct connection</h3>
+        <p>
+          We help you find counsel. You engage the lawyer yourself. No attorney–client
+          relationship is created with MAT Legal Network.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-muted" aria-labelledby="audience-heading">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="audience-heading">For clients and advocates</h2>
+      <p>One network, two clear purposes.</p>
+    </div>
+    <div class="about-split">
+      <article class="about-panel">
+        <p class="eyebrow">For clients</p>
+        <h3>Find the right counsel</h3>
+        <p>
+          Search verified lawyers across India, compare profiles, and reach out when you are
+          ready. You stay in control of who you contact and how you proceed.
+        </p>
+        <a class="btn btn-primary" href="{{ url_for('main.find_lawyers') }}">Find a Lawyer</a>
+      </article>
+      <article class="about-panel">
+        <p class="eyebrow">For advocates</p>
+        <h3>Present your practice</h3>
+        <p>
+          Submit your profile for review and appear in front of people already looking for
+          help in your city and practice area. Your listing is public only after approval.
+        </p>
+        <a class="btn btn-secondary" href="{{ url_for('main.register_lawyer') }}">Register as a Lawyer</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
   <div class="container stats-grid">
     <article class="stat-card stat-card-light">
       <div class="stat-copy">
@@ -51,6 +140,14 @@
       </div>
       <span class="stat-watermark" aria-hidden="true">MAT Legal Network</span>
     </article>
+  </div>
+</section>
+
+<section class="section section-final" aria-labelledby="about-cta-heading">
+  <div class="container final-cta">
+    <h2 id="about-cta-heading">Need legal help?</h2>
+    <p>Search verified advocates by city, practice area, and experience.</p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('main.find_lawyers') }}">Find a Lawyer</a>
   </div>
 </section>
 {% endblock %}
