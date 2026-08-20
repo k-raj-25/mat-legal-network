@@ -1,24 +1,3 @@
-import pytest
-
-from app import create_app
-from app.extensions import db
-
-
-@pytest.fixture
-def app():
-    application = create_app("testing")
-    with application.app_context():
-        db.create_all()
-        yield application
-        db.session.remove()
-        db.drop_all()
-
-
-@pytest.fixture
-def client(app):
-    return app.test_client()
-
-
 def test_health_ok(client):
     response = client.get("/api/health")
     assert response.status_code == 200
@@ -31,8 +10,10 @@ def test_index_renders(client):
     response = client.get("/")
     assert response.status_code == 200
     assert b"MAT Legal Network" in response.data
-    assert b"Find the Right Lawyer for Your Legal Needs" in response.data
-    assert b"Featured Verified Lawyers" in response.data
+    assert b"The Right Lawyer. Right Here." in response.data
+    assert b"Featured lawyers" in response.data
+    assert b"Register as a Lawyer" in response.data
+    assert b"Sign Up" not in response.data
 
 
 def test_find_lawyers_renders(client):

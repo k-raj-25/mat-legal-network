@@ -102,6 +102,36 @@
 
   document.querySelectorAll("[data-location-filters]").forEach(initLocationFilters);
 
+  const initRegisterLocations = (form) => {
+    const stateBoxes = Array.from(form.querySelectorAll("[data-register-state]"));
+    if (!stateBoxes.length) {
+      return;
+    }
+
+    const syncCityGroups = () => {
+      stateBoxes.forEach((box) => {
+        const group = form.querySelector(`[data-city-group="${box.value}"]`);
+        if (!group) {
+          return;
+        }
+        const show = box.checked;
+        group.hidden = !show;
+        if (!show) {
+          group.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+            input.checked = false;
+          });
+        }
+      });
+    };
+
+    stateBoxes.forEach((box) => {
+      box.addEventListener("change", syncCityGroups);
+    });
+    syncCityGroups();
+  };
+
+  document.querySelectorAll("[data-register-locations]").forEach(initRegisterLocations);
+
   const enhanceSelect = (select) => {
     if (select.closest(".custom-select")) {
       return;

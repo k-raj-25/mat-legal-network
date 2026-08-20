@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% from "macros/lawyer_card.html" import lawyer_photo %}
+{% from "macros/pills.html" import area_pills, location_pills %}
+
+{% block title %}Your account — MAT Legal Network{% endblock %}
+{% block meta_description %}View your MAT Legal Network lawyer application status.{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container auth-shell">
+    <div class="auth-panel auth-panel-wide">
+      <p class="eyebrow">Lawyer account</p>
+      <h1>Adv. {{ lawyer.full_name }}</h1>
+
+      {% if lawyer.is_pending %}
+        <div class="status-banner status-banner-pending">
+          <h2>Pending admin approval</h2>
+          <p>
+            Your registration is under review. You will not appear in the public directory
+            until an admin approves your profile. You cannot edit your details while the
+            application is pending.
+          </p>
+        </div>
+        <dl class="account-summary">
+          <div>
+            <dt>Email</dt>
+            <dd>{{ current_user.email }}</dd>
+          </div>
+          <div>
+            <dt>Bar Council number</dt>
+            <dd>{{ lawyer.bar_council_number }}</dd>
+          </div>
+          <div>
+            <dt>Practice areas</dt>
+            <dd>{{ area_pills(lawyer.practice_area_names) }}</dd>
+          </div>
+          <div>
+            <dt>Locations</dt>
+            <dd>{{ location_pills(lawyer.locations) }}</dd>
+          </div>
+        </dl>
+      {% elif lawyer.is_rejected %}
+        <div class="status-banner status-banner-rejected">
+          <h2>Application not approved</h2>
+          <p>{{ lawyer.rejection_reason or "Your application was not approved." }}</p>
+        </div>
+        <p>Update your details and resubmit for another review.</p>
+        <div class="auth-actions">
+          <a class="btn btn-primary" href="{{ url_for('main.reapply') }}">Update and reapply</a>
+        </div>
+      {% elif lawyer.is_approved %}
+        <div class="status-banner status-banner-approved">
+          <h2>Your profile is live</h2>
+          <p>Clients can now find you in the MAT Legal Network directory.</p>
+        </div>
+        <div class="account-live">
+          {{ lawyer_photo(lawyer, "lawyer-avatar-lg") }}
+          <div class="account-live-meta">
+            {{ area_pills(lawyer.practice_area_names) }}
+            {{ location_pills(lawyer.locations) }}
+            <div class="auth-actions">
+              <a class="btn btn-primary" href="{{ url_for('main.lawyer_profile', slug=lawyer.slug) }}">View public profile</a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

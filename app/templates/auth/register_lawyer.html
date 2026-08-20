@@ -1,23 +1,224 @@
 {% extends "base.html" %}
 
-{% block title %}Register as a Lawyer — MAT Legal Network{% endblock %}
+{% block title %}{% if is_reapply %}Reapply — MAT Legal Network{% else %}Register as a Lawyer — MAT Legal Network{% endif %}{% endblock %}
 {% block meta_description %}Join MAT Legal Network and reach clients looking for your legal expertise.{% endblock %}
 
 {% block content %}
+{% set selected_areas = form.practice_areas.data or [] %}
+{% set selected_langs = form.languages.data or [] %}
 <section class="section">
   <div class="container auth-shell">
-    <div class="auth-panel">
+    <div class="auth-panel auth-panel-wide">
       <p class="eyebrow">For advocates</p>
-      <h1>Register as a Lawyer</h1>
-      <p>
-        Lawyer onboarding is launching soon. Email
-        <a href="mailto:lawyers@matlegal.in">lawyers@matlegal.in</a>
-        to express interest in joining the network.
-      </p>
-      <div class="auth-actions">
-        <a class="btn btn-primary" href="mailto:lawyers@matlegal.in">Email us</a>
-        <a class="btn btn-secondary" href="{{ url_for('main.login') }}">Lawyer Login</a>
-      </div>
+      {% if is_reapply %}
+        <h1>Update and reapply</h1>
+        <p>Review the rejection reason, update your details, and resubmit for admin review.</p>
+        {% if lawyer and lawyer.rejection_reason %}
+          <div class="status-banner status-banner-rejected">
+            <strong>Previous decision:</strong>
+            <p>{{ lawyer.rejection_reason }}</p>
+          </div>
+        {% endif %}
+      {% else %}
+        <h1>Register as a lawyer</h1>
+        <p>Submit your profile for review. You will not appear in the public directory until an admin approves your application.</p>
+      {% endif %}
+
+      <form
+        class="auth-form"
+        method="post"
+        enctype="multipart/form-data"
+        novalidate
+        data-register-locations
+        data-state-cities='{{ state_cities | tojson }}'
+        action="{% if is_reapply %}{{ url_for('main.reapply') }}{% else %}{{ url_for('main.register_lawyer') }}{% endif %}"
+      >
+        {{ form.hidden_tag() }}
+
+        <label class="field">
+          <span>Full name</span>
+          {{ form.full_name(autocomplete="name") }}
+          {% for error in form.full_name.errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </label>
+
+        {% if is_reapply %}
+          <p class="field">
+            <span>Email</span>
+            <span class="readonly-value">{{ current_user.email }}</span>
+          </p>
+        {% else %}
+          <label class="field">
+            <span>Email</span>
+            {{ form.email(autocomplete="email") }}
+            {% for error in form.email.errors %}
+              <span class="field-error">{{ error }}</span>
+            {% endfor %}
+          </label>
+          <div class="form-row">
+            <label class="field">
+              <span>Password</span>
+              {{ form.password(autocomplete="new-password") }}
+              {% for error in form.password.errors %}
+                <span class="field-error">{{ error }}</span>
+              {% endfor %}
+            </label>
+            <label class="field">
+              <span>Confirm password</span>
+              {{ form.confirm_password(autocomplete="new-password") }}
+              {% for error in form.confirm_password.errors %}
+                <span class="field-error">{{ error }}</span>
+              {% endfor %}
+            </label>
+          </div>
+        {% endif %}
+
+        <div class="form-row">
+          <label class="field">
+            <span>Phone (office / landline)</span>
+            {{ form.phone(autocomplete="tel") }}
+            {% for error in form.phone.errors %}
+              <span class="field-error">{{ error }}</span>
+            {% endfor %}
+          </label>
+          <label class="field">
+            <span>Mobile number</span>
+            {{ form.mobile(inputmode="numeric", autocomplete="tel") }}
+            {% for error in form.mobile.errors %}
+              <span class="field-error">{{ error }}</span>
+            {% endfor %}
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Bar Council registration number</span>
+          {{ form.bar_council_number() }}
+          {% for error in form.bar_council_number.errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </label>
+
+        <fieldset class="field">
+          <legend>Practice areas</legend>
+          <div class="choice-grid">
+            {% for area in practice_areas %}
+              <label class="choice">
+                <input type="checkbox" name="practice_areas" value="{{ area }}" {% if area in selected_areas %}checked{% endif %}>
+                <span>{{ area }}</span>
+              </label>
+            {% endfor %}
+          </div>
+          {% for error in form.practice_areas.errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </fieldset>
+
+        <label class="field">
+          <span>Years of experience</span>
+          {{ form.years_experience(min="0", max="70") }}
+          {% for error in form.years_experience.errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </label>
+
+        <fieldset class="field">
+          <legend>Languages</legend>
+          <div class="choice-grid">
+            {% for language in languages %}
+              <label class="choice">
+                <input type="checkbox" name="languages" value="{{ language }}" {% if language in selected_langs %}checked{% endif %}>
+                <span>{{ language }}</span>
+              </label>
+            {% endfor %}
+          </div>
+          {% for error in form.languages.errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>States</legend>
+          <p class="field-hint">Select every state you practise in. Each selected state needs at least one city.</p>
+          <div class="choice-grid">
+            {% for state in states %}
+              <label class="choice">
+                <input
+                  type="checkbox"
+                  name="states"
+                  value="{{ state }}"
+                  data-register-state
+                  {% if state in selected_states %}checked{% endif %}
+                >
+                <span>{{ state }}</span>
+              </label>
+            {% endfor %}
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Cities</legend>
+          {% for state, cities in state_cities.items() %}
+            <div class="city-group" data-city-group="{{ state }}" {% if state not in selected_states %}hidden{% endif %}>
+              <p class="city-group-title">{{ state }}</p>
+              <div class="choice-grid">
+                {% for city in cities %}
+                  <label class="choice">
+                    <input
+                      type="checkbox"
+                      name="cities"
+                      value="{{ state }}|{{ city }}"
+                      data-city-state="{{ state }}"
+                      {% if (state ~ '|' ~ city) in selected_cities %}checked{% endif %}
+                    >
+                    <span>{{ city }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+          {% for error in location_errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </fieldset>
+
+        <label class="field">
+          <span>Address</span>
+          {{ form.address(rows="3") }}
+          {% for error in form.address.errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </label>
+
+        <label class="field">
+          <span>About</span>
+          {{ form.bio(rows="5") }}
+          {% for error in form.bio.errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </label>
+
+        <label class="field">
+          <span>Profile photo{% if is_reapply %} (optional){% endif %}</span>
+          {{ form.photo(accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp") }}
+          {% if is_reapply and lawyer and lawyer.photo_url %}
+            <span class="field-hint">Leave empty to keep your current photo.</span>
+          {% endif %}
+          {% for error in form.photo.errors %}
+            <span class="field-error">{{ error }}</span>
+          {% endfor %}
+        </label>
+
+        <button class="btn btn-primary" type="submit">
+          {% if is_reapply %}Resubmit application{% else %}Submit for approval{% endif %}
+        </button>
+      </form>
+
+      {% if not is_reapply %}
+        <div class="auth-actions">
+          <a href="{{ url_for('main.login') }}">Already registered? Log in</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>

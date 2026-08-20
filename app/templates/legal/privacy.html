@@ -1,24 +1,184 @@
 {% extends "base.html" %}
 
 {% block title %}Privacy Policy — MAT Legal Network{% endblock %}
-{% block meta_description %}Privacy Policy for MAT Legal Network.{% endblock %}
+{% block meta_description %}How MAT Legal Network collects, uses, and protects personal information for clients and lawyers.{% endblock %}
 
 {% block content %}
 <section class="page-hero">
   <div class="container narrow">
+    <p class="eyebrow">Your information</p>
     <h1>Privacy Policy</h1>
-    <p>How we handle information on MAT Legal Network.</p>
+    <p>How we collect, use, and protect information on MAT Legal Network.</p>
   </div>
 </section>
-<section class="section">
+
+<section class="section section-flush-top">
   <div class="container narrow prose">
+    <p class="legal-updated">Last updated: 20 August 2026</p>
+
     <p>
-      We collect only the information needed to operate the platform, respond to enquiries,
-      and improve lawyer discovery. We do not sell personal data.
+      This Privacy Policy explains how MAT Legal Network (“we”, “us”, or “our”) handles personal
+      information when you visit
+      <a href="{{ url_for('main.index') }}">matlegal.in</a>, search the lawyer directory, create a
+      lawyer account, or contact us. By using the platform, you agree to this policy and our
+      <a href="{{ url_for('main.terms') }}">Terms of Use</a>.
+    </p>
+
+    <h2>Who we are</h2>
+    <p>
+      MAT Legal Network is a lawyer discovery platform based in New Delhi, India. We help people
+      find verified advocates by practice area, experience, and location. We are a data fiduciary
+      under India’s Digital Personal Data Protection Act, 2023 for personal data we collect through
+      this website.
     </p>
     <p>
-      For privacy questions, contact
+      MAT Legal Network, 4th Floor, Legal Hub, Connaught Place, New Delhi 110001.<br>
+      Email: <a href="mailto:privacy@matlegal.in">privacy@matlegal.in</a>
+    </p>
+
+    <h2>Information we collect</h2>
+    <p>
+      We collect only what we need to run the directory, review lawyer applications, keep accounts
+      secure, and respond to you. We do not sell personal data.
+    </p>
+
+    <h3>Visitors and clients</h3>
+    <p>You can browse and search without creating an account. We may process:</p>
+    <ul>
+      <li>Search filters you submit, such as practice area, state, city, and experience range.</li>
+      <li>Messages you send by email or phone, including your name and contact details.</li>
+      <li>
+        Technical data such as IP address, browser type, device, pages viewed, and referring URL,
+        which may appear in server logs used for security and reliability.
+      </li>
+    </ul>
+    <p>
+      The on-site contact form is not active yet. If you email
+      <a href="mailto:hello@matlegal.in">hello@matlegal.in</a>, we use that correspondence only to
+      respond to your enquiry.
+    </p>
+
+    <h3>Lawyers who register</h3>
+    <p>When you register or reapply, we collect:</p>
+    <ul>
+      <li>Account details: email address and a hashed password (we do not store your password in plain text).</li>
+      <li>Identity and contact: full name, office or landline number, and mobile number.</li>
+      <li>Professional details: Bar Council registration number, years of experience, practice areas, languages, office address, and biography.</li>
+      <li>Locations where you practise (state and city).</li>
+      <li>A profile photograph you upload.</li>
+      <li>Application status, including any rejection reason recorded during review.</li>
+    </ul>
+    <p>
+      Your Bar Council registration number is used to verify your application and to prevent duplicate
+      listings. It is not shown on your public profile.
+    </p>
+
+    <h2>How we use information</h2>
+    <p>We use personal information to:</p>
+    <ul>
+      <li>Operate search, lawyer profiles, and account login.</li>
+      <li>Review, approve, or reject lawyer applications and communicate about status.</li>
+      <li>Publish approved lawyer profiles in the public directory.</li>
+      <li>Respond to support, partnership, and onboarding questions.</li>
+      <li>Protect the platform against abuse, fraud, and unauthorised access.</li>
+      <li>Improve the site and meet legal or regulatory obligations.</li>
+    </ul>
+
+    <h2>What appears in the public directory</h2>
+    <p>
+      A lawyer profile is not public until an administrator approves it. After approval, visitors
+      may see your name, photograph, biography, practice areas, languages, locations, years of
+      experience, and the contact numbers you provided so that prospective clients can reach you.
+    </p>
+    <p>
+      Your login email and password are not published. You can review the public view of an approved
+      profile from your account area after login.
+    </p>
+
+    <h2>Cookies and similar technology</h2>
+    <p>
+      We use essential cookies and session data so the site works, including keeping you signed in
+      and protecting forms against cross-site request forgery. These cookies are required for
+      lawyer login and registration. We do not currently use advertising or analytics cookies.
+    </p>
+    <p>
+      The site loads fonts from Google Fonts. Google may process your IP address and related
+      technical data according to
+      <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Google’s privacy policy</a>.
+    </p>
+
+    <h2>How we share information</h2>
+    <p>We may share information:</p>
+    <ul>
+      <li>Publicly, as described above, for approved lawyer profiles.</li>
+      <li>With service providers who host the website, database, or file storage, only as needed to operate the platform.</li>
+      <li>If required by law, regulation, court order, or to protect the rights, safety, or security of users or the public.</li>
+      <li>In connection with a merger, acquisition, or similar organisational change, subject to this policy or equivalent protections.</li>
+    </ul>
+    <p>We do not sell personal information or share it with third parties for their own marketing.</p>
+
+    <h2>Retention</h2>
+    <p>
+      We keep account and profile data for as long as your lawyer account remains active, and for a
+      reasonable period afterwards if needed for security, dispute handling, or legal compliance.
+      Application records (including rejection reasons) are kept so we can administer reapplications.
+      Server logs are kept only as long as useful for operations and security. You may ask us to
+      delete your account as described below.
+    </p>
+
+    <h2>Security</h2>
+    <p>
+      We use reasonable technical and organisational measures to protect personal data, including
+      hashed passwords, access controls, and encrypted connections where the site is served over
+      HTTPS. No method of transmission or storage is completely secure. Please use a strong, unique
+      password and contact us promptly if you believe your account has been compromised.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      Subject to applicable law, including the Digital Personal Data Protection Act, 2023, you may:
+    </p>
+    <ul>
+      <li>Request access to personal data we hold about you.</li>
+      <li>Ask us to correct inaccurate or incomplete information.</li>
+      <li>Request erasure of your personal data, subject to legal retention needs.</li>
+      <li>Withdraw consent where processing is based on consent.</li>
+      <li>Raise a grievance about how we handle your data.</li>
+    </ul>
+    <p>
+      Lawyers can review their submitted profile details after login. To update an approved listing,
+      correct an error, or close an account, email
       <a href="mailto:privacy@matlegal.in">privacy@matlegal.in</a>.
+      We may need to verify your identity before fulfilling a request.
+    </p>
+
+    <h2>Children</h2>
+    <p>
+      MAT Legal Network is intended for adults seeking legal professionals and for practising
+      advocates. We do not knowingly collect personal data from children.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      We may update this Privacy Policy from time to time. The “Last updated” date at the top of
+      this page will change when we do. Continued use of the platform after an update means you
+      accept the revised policy.
+    </p>
+
+    <h2>Contact and grievances</h2>
+    <p>
+      For privacy questions, data requests, or complaints, contact our privacy desk:
+    </p>
+    <p>
+      Email: <a href="mailto:privacy@matlegal.in">privacy@matlegal.in</a><br>
+      General support: <a href="mailto:hello@matlegal.in">hello@matlegal.in</a><br>
+      Phone: <a href="tel:+911140000000">+91 11 4000 0000</a><br>
+      Address: MAT Legal Network, 4th Floor, Legal Hub, Connaught Place, New Delhi 110001
+    </p>
+    <p>
+      We aim to acknowledge privacy requests promptly and to resolve grievances within a reasonable
+      period. If you are not satisfied with our response, you may also approach the Data Protection
+      Board of India as provided under applicable law.
     </p>
   </div>
 </section>

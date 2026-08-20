@@ -1,0 +1,28 @@
+{% macro area_pills(names) %}
+  {% if names %}
+    <ul class="profile-pills">
+      {% for name in names %}
+        <li>{{ name }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{% macro location_pills(locations) %}
+  {% if locations %}
+    <ul class="profile-pills profile-pills-locations">
+      {% for loc in locations %}
+        <li>
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"></path>
+            <circle cx="12" cy="10" r="2.4"></circle>
+          </svg>
+          <span class="pill-city">{{ loc.city }}</span>
+          {% if loc.state %}
+            <span class="pill-state">{{ loc.state }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
